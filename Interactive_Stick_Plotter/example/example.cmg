@@ -1,0 +1,14 @@
+---cmdGraph---
+mode stick
+adat  HITRAN__16O2_QM.stick O2_5states_QM_XX.stick O2_5states_QM_Xa.stick O2_5states_QM_Xb.stick
+--yscale log
+--xrange 0 2e4
+--yrange 1e-30 1e-27
+single HITRAN__16O2_QM.stick
+--linecolour red
+single O2_5states_QM_XX.stick
+--linecolour blue
+single O2_5states_QM_Xa.stick
+--linecolour green
+single O2_5states_QM_Xb.stick
+--linecolour orange

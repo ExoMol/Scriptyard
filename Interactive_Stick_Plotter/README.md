@@ -24,14 +24,14 @@ To add a stick file to the plot type
 
 And set the appropriate x/y ranges
 ```
-\> --xrange 0 2e4
-\> --yrange 0 1e-20
+> --xrange 0 2e4
+> --yrange 0 1e-20
 ```
 
 ## Saving and Loading Plots
 After customising your plot you can save it to a file using the save command, 
 ```
-\> save example.cmg
+> save example.cmg
 ```
 
 The save file consists of the series of commands that are required to replicate the plot, when calling the ``load`` command, the program simply executes these commands, as a result you can create the plot in advance by entering the relevant commands in a text file with the header `---cmdGraph---`.

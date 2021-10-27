@@ -1,3 +1,4 @@
+# Interactive Stick Plotter
 _by Wilfrid Somogyi_
 
 This is a glorified script for plotting stick spectra, I made it to have a fast way of interactively viewing spectra in a stick format, and quickly creating publication quality stick plots.

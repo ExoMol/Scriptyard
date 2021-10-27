@@ -12,3 +12,4 @@ The aim of this repository is to reduce duplication of efforts across the group 
 Follow links below to view the README for individual code contributions:
 
 - [Interactive Stick Plotter](Interactive_Stick_Plotter/README.md)
+- [Diabatiser](Diabatiser/README.md)

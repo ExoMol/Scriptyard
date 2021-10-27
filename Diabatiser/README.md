@@ -60,7 +60,7 @@ diabats = Diabatiser.diabatise.(rs, adiabats, Diabatiser.lorentzian, [p for i=1:
 In principle adiabatisation can be performed with no additional knowledge of the non-adiabatic couplings by simply diagonalising the diabatic potential energy matrix. However, `Diabatiser.jl` provides a function for explicit adiabatisation using the inverse transformation obtained from the NAC function. The syntax is identical to the previous example, except the adiabatic and diabatic matrices are swapped
 
 ```julia
-adiabat = Diabatiser.diabatise(r, diabat, nac_func, p)
+adiabat = Diabatiser.adiabatise(r, diabat, nac_func, p)
 ```
 
 ### Optimising the NAC Function

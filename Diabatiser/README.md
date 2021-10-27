@@ -3,7 +3,7 @@ _by Wilfrid Somogyi_
 
 This is a Julia module for transforming potential energy curves, dipole moment curves, spin-orbit coupling curves, etc. between diabatic and adiabatic representations. It provides methods for fitting arbitrary functional forms of the non-adiabatic coupling curves in order to obtain the unitary transformation matrix between the two representations.
 
-A concise discussion of the adiabatic-diabatic transformation can be found in (_Abrol and Kuppermann_, J. Chem. Phys. 116, 1035-1062 (2002))[https://doi.org/10.1063/1.1419257]. Their discussion relates to solving the Poisson equation to obtain a multi-dimensional NAC for the triatomic system H<sub>3</sub>, but the material in section I. is independent of the molecule and applies generally to any two-state system.
+A concise discussion of the adiabatic-diabatic transformation can be found in [_Abrol and Kuppermann_, J. Chem. Phys. 116, 1035-1062 (2002)](https://doi.org/10.1063/1.1419257). Their discussion relates to solving the Poisson equation to obtain a multi-dimensional NAC for the triatomic system H<sub>3</sub>, but the material in section I. is independent of the molecule and applies generally to any two-state system.
 
 ## Setup
 

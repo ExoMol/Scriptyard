@@ -1,4 +1,4 @@
-include("../diabatiser.jl")
+include("../Diabatiser.jl")
 #using ..Diabatiser # Alternative import to avoid use of `Diabatiser.` prefix
 using CSV
 using DataFrames

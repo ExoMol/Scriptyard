@@ -50,8 +50,8 @@ function fit_diabat(r, a::Array, f; w0=0.01)
     return Optim.minimizer(o)
 end
 
-function fit_diabat(r, a::Vector{Matrix}, f; w0=0.01)
-    adiabats = Matrix{Float64}(undef, length(a), 2, 2)
+function fit_diabat(r, a::Vector, f; w0=0.01)
+    adiabats = Array{Float64}(undef, length(a), 2, 2)
     for i=1:length(r)
         adiabats[i, :, :] = a[i]
     end

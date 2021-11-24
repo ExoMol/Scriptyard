@@ -13,3 +13,4 @@ Follow links below to view the README for individual code contributions:
 
 - [Interactive Stick Plotter](Interactive_Stick_Plotter/README.md)
 - [Diabatiser](Diabatiser/README.md)
+- [Duo Fitting Generator](Duo_Fitting_Generator/README.md)

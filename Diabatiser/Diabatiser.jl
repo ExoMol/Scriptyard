@@ -43,19 +43,18 @@ function detect_r0(r, a)
     return r[ind_max + 1]
 end
 
-function fit_diabat(r, a::Array, f; w0=0.01)
-    r0 = map(i -> detect_r0(r, a[:, i, i]), [1, 2])
-    r0 = sum(r0)/length(r0)
+function fit_diabat(r, a::Array, f; w0=0.01, r0=nothing)
+    r0 == nothing ? r0 = detect_r0(r, a[:, 1, 1]) : r0
     o = optimize(p -> get_loss(r, a, f, p), [w0, r0])
     return Optim.minimizer(o)
 end
 
-function fit_diabat(r, a::Vector, f; w0=0.01)
+function fit_diabat(r, a::Vector, f; w0=0.01, r0=nothing)
     adiabats = Array{Float64}(undef, length(a), 2, 2)
     for i=1:length(r)
         adiabats[i, :, :] = a[i]
     end
-    return fit_diabat(r, adiabats, f; w0=w0)
+    return fit_diabat(r, adiabats, f; w0=w0, r0=r0)
 end
 
 end

@@ -6,14 +6,24 @@ using Optim
 export lorentzian, diabatise, adiabatise, fit_diabat
 
 function lorentzian(r, w, r0)
-    return (1/(pi*w))*(w^2/((r - r0)^2 + w^2))
+    return (1/(2*w))*(w^2/((r - r0)^2 + w^2))
 end
 
 function diabatise(r, a, f, p)
     phi, _ = quadgk(x -> f(x, p...), -Inf, r, rtol=1e-12, order=10)
     U = [
-        cos(phi*pi/2) -sin(phi*pi/2);
-        sin(phi*pi/2)  cos(phi*pi/2)
+        cos(phi) -sin(phi);
+        sin(phi)  cos(phi)
+    ]
+    d = adjoint(U)*a*U
+    return d
+end
+
+function diabatise_ao(r,a,f,p)                                           # angle only
+    phi = f(r,p...)
+    U = [
+        cos(phi) -sin(phi);
+        sin(phi)  cos(phi)
     ]
     d = adjoint(U)*a*U
     return d
@@ -22,8 +32,8 @@ end
 function adiabatise(r, d, f, p)
     phi, _ = quadgk(x -> f(x, p...), -Inf, r, rtol=1e-12, order=10)
     U = [
-        cos(phi*pi/2) -sin(phi*pi/2);
-        sin(phi*pi/2)  cos(phi*pi/2)
+        cos(phi) -sin(phi);
+        sin(phi)  cos(phi)
     ]
     a = U*d*adjoint(U)
     return a
@@ -43,18 +53,19 @@ function detect_r0(r, a)
     return r[ind_max + 1]
 end
 
-function fit_diabat(r, a::Array, f; w0=0.01, r0=nothing)
-    r0 == nothing ? r0 = detect_r0(r, a[:, 1, 1]) : r0
+function fit_diabat(r, a::Array, f; w0=0.01)
+    r0 = map(i -> detect_r0(r, a[:, i, i]), [1, 2])
+    r0 = sum(r0)/length(r0)
     o = optimize(p -> get_loss(r, a, f, p), [w0, r0])
     return Optim.minimizer(o)
 end
 
-function fit_diabat(r, a::Vector, f; w0=0.01, r0=nothing)
+function fit_diabat(r, a::Vector, f; w0=0.01)
     adiabats = Array{Float64}(undef, length(a), 2, 2)
     for i=1:length(r)
         adiabats[i, :, :] = a[i]
     end
-    return fit_diabat(r, adiabats, f; w0=w0, r0=r0)
+    return fit_diabat(r, adiabats, f; w0=w0)
 end
 
 end

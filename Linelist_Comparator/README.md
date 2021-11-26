@@ -64,7 +64,3 @@ comparelist = llcomp.linelist.MergedLinelist(mylinelist, exomollinelist)
 ```
 By default `llcomp` will merge transitions according to the values of `angmom_total_i`, `angmom_total_f`, `vibrational_i`, `vibrational_f`, `electronic_state_i` and `electronic_state_f`. Remaining quantities will then be appended with `_L` or `_R` depending on whether they belong to the left linelist or the right linelist (`mylinelist` and `exomollinelist`, respectively, in the example above). 
 
-# duo_fit_inp.py
-
-Generates a new Duo fitting input from a previous fitting output.
-

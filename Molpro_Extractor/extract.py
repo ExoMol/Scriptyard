@@ -1,16 +1,14 @@
 #--- Extraction setup
-states = ['1.1', '2.1', '1.7', '2.7']
+states = ['1.4', '1.6', '2.6']
 quadrupoles = [
-    '<1.7|QMZZ|1.7>', '<2.7|QMZZ|2.7>', '<2.7|QMZZ|1.7>', 
-    '<1.7|QMYZ|2.1>', '<2.7|QMYZ|2.1>', 
-    '<1.7|QMYZ|1.1>', '<2.7|QMYZ|1.1>', 
-    '<1.1|QMZZ|1.1>', '<2.1|QMZZ|2.1>', '<2.1|QMZZ|1.1>']
-spinorbits = ['<1.7|LSZ|2.1>']
-files = [
-    "b1sigp-d1pig-qtm-lx-b7 from 1.41A to 0.98A 2 states.out",
-    "b1sigp-d1pig-qtm-lx-f7 from 1.41A to 3.0A 2 states.out"
+    '<1.4|QMZZ|1.4>', '<1.6|QMZZ|1.6>', '<2.6|QMZZ|2.6>', '<2.6|QMZZ|1.6>' 
 ]
-out = "b1sigp-d1pig-qtm__2states"
+spinorbits = ['<1.4|LSX|1.6>', '<1.4|LSX|2.6>']
+files = [
+    "x3sig-d1pig6b-lsx from 1.35A to 0.98A 2states.out",
+    "x3sig-d1pig6f-lsx from 1.35A to 3.0A 2states.out"
+]
+out = "x3sig-d1pig-ls__2states"
 
 #---
 import numpy as np
@@ -52,7 +50,10 @@ for file in files:
     #Check if any geometries failed
     if len(vals['geoms']) != len(vals['loop']):
         for key in keys:
-            vals[key] = vals[key][:len(vals['loop'])-1]
+            if key in spinorbits:
+                vals[key] = vals[key][:2*len(vals['loop'])-1]    
+            else:
+                vals[key] = vals[key][:len(vals['loop'])-1]
 
 #Spin-orbits have two values for each geometry (mean-field and Briet-Pauli)
 for spinorbit in spinorbits:

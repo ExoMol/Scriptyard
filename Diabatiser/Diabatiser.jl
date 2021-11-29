@@ -9,7 +9,7 @@ function lorentzian(r, w, r0)
     return (1/(pi*w))*(w^2/((r - r0)^2 + w^2))
 end
 
-function diabatise(r, a, f, p)
+function diabatise(r, a::Matrix, f, p)
     phi, _ = quadgk(x -> f(x, p...), -Inf, r, rtol=1e-12, order=10)
     U = [
         cos(phi*pi/2) -sin(phi*pi/2);
@@ -19,13 +19,33 @@ function diabatise(r, a, f, p)
     return d
 end
 
-function adiabatise(r, d, f, p)
+function diabatise(r, a::Vector, f, p)
+    phi, _ = quadgk(x -> f(x, p...), -Inf, r, rtol=1e-12, order=10)
+    U = [
+        cos(phi*pi/2) -sin(phi*pi/2);
+        sin(phi*pi/2)  cos(phi*pi/2)
+    ]
+    d = adjoint(U)*a
+    return d
+end
+
+function adiabatise(r, d::Matrix, f, p)
     phi, _ = quadgk(x -> f(x, p...), -Inf, r, rtol=1e-12, order=10)
     U = [
         cos(phi*pi/2) -sin(phi*pi/2);
         sin(phi*pi/2)  cos(phi*pi/2)
     ]
     a = U*d*adjoint(U)
+    return a
+end
+
+function adiabatise(r, d::Vector, f, p)
+    phi, _ = quadgk(x -> f(x, p...), -Inf, r, rtol=1e-12, order=10)
+    U = [
+        cos(phi*pi/2) -sin(phi*pi/2);
+        sin(phi*pi/2)  cos(phi*pi/2)
+    ]
+    a = U*d
     return a
 end
 

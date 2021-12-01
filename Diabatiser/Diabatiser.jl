@@ -9,36 +9,13 @@ function lorentzian(r, w, r0)
     return (1/(2*w))*(w^2/((r - r0)^2 + w^2))
 end
 
-<<<<<<< Updated upstream
-function diabatise(r, a, f, p)
-    phi, _ = quadgk(x -> f(x, p...), -Inf, r, rtol=1e-12, order=10)
-    U = [
-        cos(phi) -sin(phi);
-        sin(phi)  cos(phi)
-    ]
-    d = adjoint(U)*a*U
-    return d
-=======
 function nactomixingangle(r, f, p)
     phi, err = quadgk(x -> f(x, p...), -Inf, r, rtol=1e-15, order=10)
     return phi
->>>>>>> Stashed changes
 end
 
 @inline adiabatictodiabatic(phi) = [cos(phi) -sin(phi); sin(phi)  cos(phi)]
 
-<<<<<<< Updated upstream
-function adiabatise(r, d, f, p)
-    phi, _ = quadgk(x -> f(x, p...), -Inf, r, rtol=1e-12, order=10)
-    U = [
-        cos(phi) -sin(phi);
-        sin(phi)  cos(phi)
-    ]
-    a = U*d*adjoint(U)
-    return a
-end
-
-=======
 diabatise(a::Matrix, U::Matrix) = adjoint(U)*a*U
 diabatise(a::Vector, U::Matrix) = adjoint(U)*a
 adiabatise(a::Matrix, U::Matrix) = U*a*adjoint(U)
@@ -50,7 +27,6 @@ adiabatise(a::T, phi::Float) where T<:Union{Matrix, Vector} = adiabatise(a, adia
 diabatise(a::T, r, f::Function, p) where T<:Union{Matrix, Vector} = diabatise(a, nactomixingangle(r, f, p))
 adiabatise(a::T, r, f::Function, p) where T<:Union{Matrix, Vector} = adiabatise(a, nactomixingangle(r, f, p))
 
->>>>>>> Stashed changes
 @inline so_derivative(r, a) = 2*(diff(diff(a) ./ diff(r))) ./ (diff(r)[1:length(r)-2] .+ diff(r)[2:length(r)-1])
 
 function get_loss(r, a, f, p)

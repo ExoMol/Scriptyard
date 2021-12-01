@@ -14,7 +14,7 @@ function nactomixingangle(r, f, p)
     return phi
 end
 
-@inline adiabatictodiabatic(phi) = [cos(phi) -sin(phi); sin(phi)  cos(phi)]
+@inline adiabatictodiabatic(phi) = [cos(phi*pi/2) -sin(phi*pi/2); sin(phi*pi/2) cos(phi*pi/2)]
 
 diabatise(a::Matrix, U::Matrix) = adjoint(U)*a*U
 diabatise(a::Vector, U::Matrix) = adjoint(U)*a

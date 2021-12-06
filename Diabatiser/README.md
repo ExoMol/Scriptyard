@@ -35,7 +35,7 @@ include("/path/to/Scriptyard/Diabatiser/Diabatiser.jl")
 To diabatise the potential energy operator for a given geometry we can call the function `Diabatiser.diabatise`, for example
 
 ```julia
-diabat = Diabatiser.diabatise(r, adiabat, nac_func, p)
+diabat = Diabatiser.diabatise(adiabat, r, nac_func, p)
 ```
 
 Which performs the diabatisation at internuclear distance `r` of the 2x2 potential energy operator `adiabat` parametrised by the non-adiabatic coupling function `nac_func` with parameters specified by the list `p`. A more concrete example is given below showing the diabatisation of the potential energy operator at a geometry (r = 1.580) close to the avoided crossing paramterised by a Lorentzian (width = 0.012Å, r0 = 1.588Å) NAC function.
@@ -43,7 +43,7 @@ Which performs the diabatisation at internuclear distance `r` of the 2x2 potenti
 ```julia
 adiabat = [-149.791 0; 0 -149.784] #2x2 matrix with adiabatic potential energies on the diagonal
 p = [0.012, 1.588] #width and central value parameters for Lorentzian function
-diabat = Diabatiser.diabatise(1.580, adiabat, Diabatiser.lorentzian, p)
+diabat = Diabatiser.diabatise(adiabat, 1.580, Diabatiser.lorentzian, p)
 ```
 
 Which returns a 2x2 matrix with the diabatic potential energies and the off-diagonal diabatic couplings (V1 = -149.789, V2 = -149.786, V12 = V21 = 0.00291218). If the adiabatic potential energy matrices for each geometry are stored as a vector of matrices, the function can be vectorised using standard Julia dot notation
@@ -52,7 +52,7 @@ Which returns a 2x2 matrix with the diabatic potential energies and the off-diag
 adiabats = [[-149.791 0; 0 -149.782], [-149.791 0; 0 -149.784], [-149.792 0; 0 -149.786]]
 rs = [1.575, 1.580, 1.589]
 p = [0.012, 1.588]
-diabats = Diabatiser.diabatise.(rs, adiabats, Diabatiser.lorentzian, [p for i=1:length(adiabats)])
+diabats = Diabatiser.diabatise.(adiabats, rs, Diabatiser.lorentzian, [p for i=1:length(adiabats)])
 ```
 
 ### Adiabatising Diabatic Curves
@@ -60,7 +60,7 @@ diabats = Diabatiser.diabatise.(rs, adiabats, Diabatiser.lorentzian, [p for i=1:
 In principle adiabatisation can be performed with no additional knowledge of the non-adiabatic couplings by simply diagonalising the diabatic potential energy matrix. However, `Diabatiser.jl` provides a function for explicit adiabatisation using the inverse transformation obtained from the NAC function. The syntax is identical to the previous example, except the adiabatic and diabatic matrices are swapped
 
 ```julia
-adiabat = Diabatiser.adiabatise(r, diabat, nac_func, p)
+adiabat = Diabatiser.adiabatise(diabat, r, nac_func, p)
 ```
 
 ### Optimising the NAC Function
@@ -68,7 +68,7 @@ adiabat = Diabatiser.adiabatise(r, diabat, nac_func, p)
 In the case that the parameters of the NAC are not known prior to the diabatisation, `Diabatiser.jl` provides the function `fit_diabat` that minimises a loss function to obtain the best-fit parameters for an arbitrary functional form of the NAC function. In this case, the entire vector of geometries is processed simultaneously, rather than on a geometry-by-geometry basis.
 
 ```julia
-opt = Diabatiser.fit_diabat(rs, adiabats, Diabatiser.lorentzian)
+opt = Diabatiser.fit_diabat(adiabats, rs, Diabatiser.lorentzian)
 ```
 
 The adiabats can alternatively be provided as a 3-dimensional array, with geometries along the first dimension. 
@@ -76,7 +76,7 @@ The adiabats can alternatively be provided as a 3-dimensional array, with geomet
 The loss function is the sum of second order derivatives of the PEC, which aims to minimise gradient changes in the region of the avoided crossing. Because the parameter space of the NAC often results in numerous local minima in the loss function, particularly when the position of the avoided crossing is not well constrained, the optimisation procedure automatically guesses an initial centre for the avoided crossing by searching for the geometry corresponding to the largest second order derivative. Providing an initial guess for the width is more complicated, but when the position of the avoided crossing is well constrained by an initial guess, the loss function generally has only a few local minima and an initial guess for the width of the NAC with the correct order of magnitude is usually sufficient. Thus the initial guess for the width of the NAC defaults to `w=0.01`, which generally gives correct minimisation for bond lengths in Angstrom or Bohrs, an alternative initial guess can be provided via the keyword argument `w`, this is useful if the length dimensions are much larger or smaller than Angstroms e.g nanometres
 
 ```julia
-opt = Diabatiser.fit_diabat(rs, adiabats, Diabatiser.lorentzian; w0=0.001)
+opt = Diabatiser.fit_diabat(adiabats, rs, Diabatiser.lorentzian; w0=0.001)
 ```
 
 ### Functional Forms of the NAC

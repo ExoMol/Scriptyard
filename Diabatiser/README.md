@@ -1,5 +1,5 @@
 # Diabatiser
-_by Wilfrid Somogyi_
+_by W. Somogyi_
 
 This is a Julia module for transforming potential energy curves, dipole moment curves, spin-orbit coupling curves, etc. between diabatic and adiabatic representations. It provides methods for fitting arbitrary functional forms of the non-adiabatic coupling curves in order to obtain the unitary transformation matrix between the two representations.
 

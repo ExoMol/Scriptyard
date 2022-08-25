@@ -4,6 +4,7 @@ using CSV
 using DataFrames
 using LinearAlgebra
 using PyPlot
+using Tables
 
 # Initial setup
 df = CSV.read("adiabatic_pecs.csv", DataFrame)
@@ -14,13 +15,21 @@ for i=1:size(df)[1]
 end
 
 # Best fit parameters for NAC
-opt = Diabatiser.fit_diabat(geoms, adiabats, Diabatiser.lorentzian)
+opt = Diabatiser.fit_diabat(adiabats, geoms, Diabatiser.lorentzian)
+println(opt)
 
 # Diabatise from best fit params
 diabats = Array{Float64}(undef, size(adiabats))
 for i=1:length(geoms)
-    diabats[i, :, :] = Diabatiser.diabatise(geoms[i], adiabats[i, :, :], Diabatiser.lorentzian, opt)
+    diabats[i, :, :] = Diabatiser.diabatise(adiabats[i, :, :], geoms[i], Diabatiser.lorentzian, opt)
 end
+
+# Write results to file
+table = Matrix{Float64}(undef, (length(geoms), 3))
+table[:, 1] = geoms
+table[:, 2] = diabats[:, 1, 1]
+table[:, 3] = diabats[:, 2, 2]
+CSV.write("diabatic_pecs.csv",  Tables.table(table, header=["R", "Energy 1.6", "Energy 2.6"]))
 
 # Plot comparison of diabats and adiabats
 plot(geoms, adiabats[:, 1, 1], color=:red, label="Adiabatic")

@@ -1,0 +1,4 @@
+exp-datafile ./data/H2CO_exp_spec_6546-6900_cm-1.csv
+exp-type high
+calc-datafile ./data/H2CO_calc_dataframe_simplified.csv
+calc-type stick

@@ -36,10 +36,10 @@ Two files are needed: (1) the experimental datafile including positions and inte
 
 The script also needs input to where the experiment and theory datafiles are as well as some keywords telling the script what data-type you have provided (i.e. stick spectra or resolved spectra). The input parameters are as follows:
 
-* exp-datafile = "~/the/directory/to/your/experimental/datafile/exp.csv"
-* exp-type = high/stick. 'high' means high resolution experimental data (can see resolved line profiles), 'stick' means only positions and intensities of lines are known.
-* calc-datafile = "~/the/directory/to/your/theoretical/datafile/theory.csv"
-* calc-type = high/stick. 'high' means you have modelled your line list with a line profile, 'stick' means stick spectra. NOTE: only stick is supported at the moment, I plan on incoorporating profile modelled line lists soon.
+* `exp-datafile` = "~/the/directory/to/your/experimental/datafile/exp.csv"
+* `exp-type` = high/stick. 'high' means high resolution experimental data (can see resolved line profiles), 'stick' means only positions and intensities of lines are known.
+* `calc-datafile` = "~/the/directory/to/your/theoretical/datafile/theory.csv"
+* `calc-type` = high/stick. 'high' means you have modelled your line list with a line profile, 'stick' means stick spectra. NOTE: only stick is supported at the moment, I plan on incoorporating profile modelled line lists soon.
 
 We can input the parameters into the script two ways...
 
@@ -52,7 +52,7 @@ python3 RoVa.py exp-datafile exp-type calc-datafile calc-type
 
 ### 2: Input file
 
-We have an input file called 'config.txt' that contains the keywords listed above followed by your desired input. For example:
+We have an input file called `config.txt` that contains the keywords listed above followed by your desired input. For example:
 
 ```
 exp-datafile ./data/H2CO_exp_spec_6546-6900_cm-1.csv 

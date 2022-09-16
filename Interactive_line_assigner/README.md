@@ -54,10 +54,12 @@ python3 RoVa.py exp-datafile exp-type calc-datafile calc-type
 
 We have an input file called 'config.txt' that contains the keywords listed above followed by your desired input. For example:
 
-exp-datafile ./data/H2CO_exp_spec_6546-6900_cm-1.csv
-exp-type high
-calc-datafile ./data/H2CO_calc_dataframe_simplified.csv
-calc-type stick
+```
+exp-datafile ./data/H2CO_exp_spec_6546-6900_cm-1.csv 
+exp-type high 
+calc-datafile ./data/H2CO_calc_dataframe_simplified.csv 
+calc-type stick 
+```
 
 The order of the keywords doesn't matter.
 

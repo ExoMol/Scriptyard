@@ -32,7 +32,7 @@ This will create a python environment completely clean of any libraries you have
 
 ## The Input: Data set up and keywords
 
-Two files are needed: (1) the experimental datafile including positions and intensities; (2) the theoretical line list including positions, intensities, and quantum numbers. These files need to be in a .csv format.
+Two files are needed: (1) the experimental datafile including positions and intensities; (2) the theoretical line list including positions, intensities, and quantum numbers. These files need to be in a `.csv` format.
 
 The script also needs input to where the experiment and theory datafiles are as well as some keywords telling the script what data-type you have provided (i.e. stick spectra or resolved spectra). The input parameters are as follows:
 
